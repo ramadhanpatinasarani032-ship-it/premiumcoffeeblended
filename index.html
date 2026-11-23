@@ -1,0 +1,1546 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PREMIUM COFFEEBLENDED — Reservasi &amp; Kasir</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Plus Jakarta Sans', 'sans-serif'],
+          },
+          colors: {
+            coffee: {
+              950: '#160d08',
+              900: '#27170f',
+              800: '#3d2418',
+              700: '#573422',
+              600: '#73452d',
+              500: '#91583a',
+              200: '#e2c8b5',
+              100: '#f3e7de',
+            },
+            gold: {
+              600: '#b8860b',
+              500: '#d4a017',
+              400: '#eab308',
+              300: '#fde047',
+              100: '#fef9c3',
+            },
+            cream: {
+              50: '#fdfbf7',
+              100: '#f8f3ea',
+              200: '#efe6d5',
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    body {
+      background-color: #fdfbf7;
+      color: #27170f;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .ramadan-pattern {
+      background-color: #160d08;
+      background-image:
+        radial-gradient(circle at 15% 20%, rgba(212, 160, 23, 0.16) 0%, transparent 45%),
+        radial-gradient(circle at 85% 15%, rgba(145, 88, 58, 0.24) 0%, transparent 50%),
+        radial-gradient(circle at 50% 100%, rgba(212, 160, 23, 0.12) 0%, transparent 55%);
+    }
+
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #f8f3ea;
+      border-radius: 9999px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #d6c3ad;
+      border-radius: 9999px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #91583a;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- Toast Notifikasi -->
+  <div id="toastContainer" class="fixed top-4 right-4 z-[90] flex flex-col gap-2 max-w-sm w-full px-3 sm:px-0 pointer-events-none"></div>
+
+  <!-- Header -->
+  <header class="ramadan-pattern text-white sticky top-0 z-40 border-b border-gold-500/25 shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div class="flex items-center justify-between gap-3">
+          <div class="flex items-center gap-3">
+            <!-- Logo SVG Vektor Transparan berdasarkan desain Premium Coffee Blended -->
+            <div class="w-12 h-12 rounded-2xl bg-white/5 border border-gold-400/35 flex items-center justify-center shadow-md p-1 shrink-0" aria-label="Logo Premium Coffee Blended">
+              <svg viewBox="0 0 240 240" class="w-full h-full overflow-visible" role="img" aria-label="Premium Coffee Blended Republic of Warriors">
+                <defs>
+                  <path id="logoArcTop" d="M 34,120 A 86,86 0 1,1 206,120" fill="none" />
+                  <path id="logoArcBottom" d="M 38,124 A 82,82 0 0,0 202,124" fill="none" />
+                </defs>
+
+                <!-- Lingkaran tipis transparan / aksen emas -->
+                <circle cx="120" cy="120" r="106" fill="none" stroke="#f3e7de" stroke-width="2" stroke-opacity="0.45" />
+                <circle cx="120" cy="120" r="74" fill="none" stroke="#f3e7de" stroke-width="1.5" stroke-opacity="0.35" />
+
+                <!-- Teks lengkung atas: Premium Coffee Blended -->
+                <text fill="#ffffff" font-family="'Plus Jakarta Sans', 'Inter', sans-serif" font-weight="800" font-size="16.5" letter-spacing="1.4">
+                  <textPath href="#logoArcTop" startOffset="50%" text-anchor="middle">
+                    Premium Coffee Blended
+                  </textPath>
+                </text>
+
+                <!-- Teks lengkung bawah: Republic of Warriors -->
+                <text fill="#f3e7de" font-family="'Inter', sans-serif" font-weight="600" font-size="13" letter-spacing="1.8">
+                  <textPath href="#logoArcBottom" startOffset="50%" text-anchor="middle">
+                    Republic of Warriors
+                  </textPath>
+                </text>
+
+                <!-- Panah bersilang -->
+                <g stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" fill="none">
+                  <line x1="74" y1="74" x2="166" y2="166" />
+                  <line x1="166" y1="74" x2="74" y2="166" />
+                  <!-- Ujung panah kanan atas -->
+                  <polyline points="155,74 166,74 166,85" />
+                  <!-- Ujung panah kiri atas -->
+                  <polyline points="85,74 74,74 74,85" />
+                  <!-- Ekor panah kiri bawah -->
+                  <line x1="74" y1="166" x2="68" y2="172" />
+                  <line x1="74" y1="166" x2="67" y2="166" />
+                  <line x1="74" y1="166" x2="74" y2="173" />
+                  <!-- Ekor panah kanan bawah -->
+                  <line x1="166" y1="166" x2="172" y2="172" />
+                  <line x1="166" y1="166" x2="173" y2="166" />
+                  <line x1="166" y1="166" x2="166" y2="173" />
+                </g>
+
+                <!-- Cangkir kopi di bagian atas tengah -->
+                <g transform="translate(120, 72)" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                  <!-- Uap kopi -->
+                  <path d="M -4,-13 C -7,-16 -2,-20 -5,-23" />
+                  <path d="M 3,-13 C 0,-16 5,-20 2,-23" />
+                  <!-- Badan cangkir -->
+                  <path d="M -12,-7 L 10,-7 L 8,5 C 7,8 4,9 0,9 C -4,9 -7,8 -8,5 Z" fill="#160d08" fill-opacity="0.55" />
+                  <!-- Gagang cangkir -->
+                  <path d="M 10,-4 C 15,-4 15,3 10,3" />
+                </g>
+
+                <!-- Huruf H dan P -->
+                <text x="83" y="128" fill="#ffffff" font-family="'Plus Jakarta Sans', Georgia, serif" font-weight="800" font-size="25" text-anchor="middle">H</text>
+                <text x="157" y="128" fill="#ffffff" font-family="'Plus Jakarta Sans', Georgia, serif" font-weight="800" font-size="25" text-anchor="middle">P</text>
+
+                <!-- Kumis -->
+                <path d="M 120,145 C 115,141 106,141 101,147 C 98,150 96,150 94,148 C 97,154 106,155 114,151 C 117,149 119,148 120,148 C 121,148 123,149 126,151 C 134,155 143,154 146,148 C 144,150 142,150 139,147 C 134,141 125,141 120,145 Z" fill="#ffffff" />
+
+                <!-- Teks est. 2015 -->
+                <text x="120" y="166" fill="#ffffff" font-family="'Inter', sans-serif" font-weight="800" font-size="9.5" letter-spacing="0.6" text-anchor="middle">est. 2015</text>
+              </svg>
+            </div>
+            <div>
+              <h1 class="font-display font-extrabold text-lg sm:text-xl tracking-wide text-white">
+                PREMIUM COFFEEBLENDED
+              </h1>
+              <p class="text-xs text-cream-200/80">
+                Reservasi Online
+              </p>
+            </div>
+          </div>
+
+          <div id="cloudStatusBadgeMobile" class="md:hidden inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-white/10 text-cream-100 border border-white/15">
+            <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+            <span>Lokal</span>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between md:justify-end gap-3">
+          <div class="inline-flex p-1 rounded-2xl bg-coffee-950/80 border border-white/10 w-full sm:w-auto">
+            <button
+              type="button"
+              id="tabReservationBtn"
+              onclick="window.switchMainTab('reservation')"
+              class="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-display font-bold bg-gold-500 text-coffee-950 shadow transition-all"
+            >
+              <i class="ph-bold ph-calendar-check text-base"></i>
+              <span>Form Reservasi</span>
+            </button>
+            <button
+              type="button"
+              id="tabAdminBtn"
+              onclick="window.switchMainTab('admin')"
+              class="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-display font-bold text-cream-200 hover:text-white transition-all"
+            >
+              <i class="ph-bold ph-layout text-base"></i>
+              <span>Dashboard Admin &amp; Kasir</span>
+            </button>
+          </div>
+
+          <div id="cloudStatusBadgeDesktop" class="hidden md:inline-flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold bg-white/10 text-cream-100 border border-white/15">
+            <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+            <span>Penyimpanan Lokal</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Konten Utama -->
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+
+    <!-- FORM RESERVASI -->
+    <section id="reservationSection" class="space-y-6">
+      <div class="ramadan-pattern rounded-3xl p-6 sm:p-8 text-white border border-gold-500/25 shadow-xl">
+        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+          <div class="space-y-1.5">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gold-500/15 border border-gold-400/30 text-gold-300 text-xs font-semibold">
+              <i class="ph-fill ph-sparkle"></i>
+              <span>Reservasi &amp; Pre-Order Menu</span>
+            </span>
+            <h2 class="font-display font-extrabold text-2xl sm:text-3xl">
+              Reservasi Meja &amp; Pesan Menu Favorit
+            </h2>
+            <p class="text-xs sm:text-sm text-cream-200/80 max-w-2xl">
+              Isi data kedatangan dan pilih menu minuman serta makanan. Setelah reservasi dikirim, bukti booking akan muncul dan dapat dikirim ke WhatsApp admin.
+            </p>
+          </div>
+          <div class="flex gap-3 shrink-0">
+            <div class="bg-white/10 rounded-2xl px-4 py-3 border border-white/10 text-center">
+              <div class="text-[11px] text-gold-300 font-semibold">DP Reservasi</div>
+              <div class="font-display font-extrabold text-base">30% / Min 50rb</div>
+            </div>
+            <div class="bg-white/10 rounded-2xl px-4 py-3 border border-white/10 text-center">
+              <div class="text-[11px] text-gold-300 font-semibold">WA Admin</div>
+              <div class="font-display font-extrabold text-base">0851-9190-4930</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <form id="reservationForm" onsubmit="window.handleReservationSubmit(event)" class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        <div class="lg:col-span-8 space-y-6">
+
+          <!-- Data Tamu -->
+          <div class="bg-white rounded-3xl p-5 sm:p-6 border border-cream-200 shadow-sm space-y-4">
+            <h3 class="font-display font-bold text-lg text-coffee-950 border-b border-cream-200 pb-3">
+              1. Informasi Pemesan &amp; Jadwal
+            </h3>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="custName" class="block text-xs font-bold uppercase tracking-wider text-coffee-800 mb-1.5">
+                  Nama Lengkap *
+                </label>
+                <input type="text" id="custName" required placeholder="Nama Anda" class="w-full px-4 py-2.5 rounded-xl bg-cream-50 border border-coffee-200 text-sm focus:outline-none focus:ring-2 focus:ring-gold-500" />
+              </div>
+
+              <div>
+                <label for="custPhone" class="block text-xs font-bold uppercase tracking-wider text-coffee-800 mb-1.5">
+                  Nomor WhatsApp *
+                </label>
+                <input type="tel" id="custPhone" required placeholder="08xxxxxxxxxx" class="w-full px-4 py-2.5 rounded-xl bg-cream-50 border border-coffee-200 text-sm focus:outline-none focus:ring-2 focus:ring-gold-500" />
+              </div>
+
+              <div>
+                <label for="resDate" class="block text-xs font-bold uppercase tracking-wider text-coffee-800 mb-1.5">
+                  Tanggal Kedatangan *
+                </label>
+                <input type="date" id="resDate" required class="w-full px-4 py-2.5 rounded-xl bg-cream-50 border border-coffee-200 text-sm focus:outline-none focus:ring-2 focus:ring-gold-500" />
+              </div>
+
+              <div>
+                <label for="arrivalTime" class="block text-xs font-bold uppercase tracking-wider text-coffee-800 mb-1.5">
+                  Jam Kedatangan *
+                </label>
+                <select id="arrivalTime" required class="w-full px-4 py-2.5 rounded-xl bg-cream-50 border border-coffee-200 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-gold-500">
+                  <option value="17:00">17:00 WIB</option>
+                  <option value="17:30" selected>17:30 WIB</option>
+                  <option value="18:00">18:00 WIB</option>
+                  <option value="18:30">18:30 WIB</option>
+                  <option value="19:00">19:00 WIB</option>
+                  <option value="20:00">20:00 WIB</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="guestCount" class="block text-xs font-bold uppercase tracking-wider text-coffee-800 mb-1.5">
+                  Jumlah Orang (Pax) *
+                </label>
+                <div class="flex items-center gap-2">
+                  <button type="button" onclick="window.stepGuestCount(-1)" class="w-11 h-11 rounded-xl bg-cream-100 hover:bg-cream-200 border border-coffee-200 font-bold flex items-center justify-center">
+                    <i class="ph-bold ph-minus"></i>
+                  </button>
+                  <input type="number" id="guestCount" min="1" max="100" value="2" required oninput="window.updateOrderSummary()" class="w-full px-3 py-2.5 rounded-xl bg-cream-50 border border-coffee-200 text-center font-display font-extrabold text-base focus:outline-none focus:ring-2 focus:ring-gold-500" />
+                  <button type="button" onclick="window.stepGuestCount(1)" class="w-11 h-11 rounded-xl bg-coffee-900 hover:bg-coffee-950 text-gold-300 font-bold flex items-center justify-center">
+                    <i class="ph-bold ph-plus"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div>
+                <label for="notes" class="block text-xs font-bold uppercase tracking-wider text-coffee-800 mb-1.5">
+                  Catatan Tambahan
+                </label>
+                <input type="text" id="notes" placeholder="Opsional (level pedas, es, dll)" class="w-full px-4 py-2.5 rounded-xl bg-cream-50 border border-coffee-200 text-sm focus:outline-none focus:ring-2 focus:ring-gold-500" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Katalog Menu -->
+          <div class="bg-white rounded-3xl p-5 sm:p-6 border border-cream-200 shadow-sm space-y-5">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-cream-200 pb-4">
+              <h3 class="font-display font-bold text-lg text-coffee-950">
+                2. Pilih Menu MINUMAN &amp; MAKANAN
+              </h3>
+
+              <div class="inline-flex p-1 rounded-xl bg-cream-100 border border-cream-200 self-start sm:self-auto">
+                <button type="button" data-cat="Semua" onclick="window.setMenuCategory('Semua')" class="menu-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-coffee-900 text-white">Semua</button>
+                <button type="button" data-cat="MINUMAN" onclick="window.setMenuCategory('MINUMAN')" class="menu-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold text-coffee-700 hover:text-coffee-950">MINUMAN</button>
+                <button type="button" data-cat="MAKANAN" onclick="window.setMenuCategory('MAKANAN')" class="menu-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold text-coffee-700 hover:text-coffee-950">MAKANAN</button>
+              </div>
+            </div>
+
+            <div id="menuCatalogGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-3.5"></div>
+          </div>
+        </div>
+
+        <!-- Ringkasan Pesanan -->
+        <div class="lg:col-span-4 lg:sticky lg:top-24">
+          <div class="bg-white rounded-3xl p-5 sm:p-6 border border-cream-200 shadow-md space-y-4">
+            <div class="flex items-center justify-between border-b border-cream-200 pb-3">
+              <h3 class="font-display font-bold text-lg text-coffee-950">Ringkasan Pesanan</h3>
+              <span id="summaryPaxBadge" class="px-2.5 py-1 rounded-full bg-cream-100 text-coffee-900 font-bold text-xs">2 Orang</span>
+            </div>
+
+            <div id="summaryItemsList" class="space-y-2 max-h-60 overflow-y-auto custom-scrollbar pr-1">
+              <div class="text-center py-6 px-3 rounded-2xl bg-cream-50 border border-dashed border-coffee-200 text-xs text-coffee-500">
+                Belum ada menu dipilih.
+              </div>
+            </div>
+
+            <div class="pt-3 border-t border-dashed border-coffee-200 space-y-2 text-xs sm:text-sm">
+              <div class="flex justify-between text-coffee-700">
+                <span>Total Porsi</span>
+                <span id="summaryTotalQty" class="font-bold text-coffee-950">0 Porsi</span>
+              </div>
+              <div class="flex justify-between text-coffee-700">
+                <span>Estimasi DP (30% / Min 50rb)</span>
+                <span id="summaryDpAmount" class="font-bold text-gold-700">Rp 0</span>
+              </div>
+              <div class="flex justify-between pt-2 border-t border-cream-200">
+                <span class="font-display font-bold text-base text-coffee-950">Total</span>
+                <span id="summaryTotalPrice" class="font-display font-extrabold text-xl text-coffee-950">Rp 0</span>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              id="submitReservationBtn"
+              class="w-full py-3.5 px-4 rounded-2xl bg-coffee-900 hover:bg-coffee-950 text-gold-300 font-display font-extrabold text-sm shadow-lg transition-all flex items-center justify-center gap-2"
+            >
+              <i class="ph-bold ph-cloud-arrow-up text-lg"></i>
+              <span>Kirim Reservasi &amp; Simpan ke Cloud</span>
+            </button>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <!-- DASHBOARD ADMIN & KASIR -->
+    <section id="adminSection" class="hidden space-y-6">
+      <div id="adminPinGate" class="max-w-md mx-auto bg-white rounded-3xl p-6 sm:p-8 border border-cream-200 shadow-lg text-center space-y-5 my-6">
+        <div class="w-14 h-14 rounded-2xl bg-coffee-900 text-gold-400 flex items-center justify-center mx-auto">
+          <i class="ph-fill ph-lock-key text-3xl"></i>
+        </div>
+        <div>
+          <h2 class="font-display font-extrabold text-xl text-coffee-950">Dashboard Admin &amp; Kasir</h2>
+          <p class="text-xs sm:text-sm text-coffee-600 mt-1">Masukkan PIN akses admin untuk mengelola reservasi, jumlah orang &amp; rincian menu.</p>
+        </div>
+        <form id="adminPinForm" onsubmit="window.handleAdminPinSubmit(event)" class="space-y-3">
+          <input type="password" id="adminPinInput" inputmode="numeric" maxlength="12" placeholder="Masukkan PIN Admin" autocomplete="off" required class="w-full px-4 py-3 rounded-xl bg-cream-50 border border-coffee-200 text-center font-display font-extrabold text-lg tracking-widest focus:outline-none focus:ring-2 focus:ring-gold-500" />
+          <button type="submit" class="w-full py-3 px-4 rounded-xl bg-coffee-900 hover:bg-coffee-950 text-gold-300 font-display font-bold text-sm">
+            Masuk Dashboard
+          </button>
+        </form>
+      </div>
+
+      <div id="adminDashboardContent" class="hidden space-y-6">
+        <div class="bg-white rounded-3xl p-5 sm:p-6 border border-cream-200 shadow-sm flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div>
+            <h2 class="font-display font-extrabold text-xl sm:text-2xl text-coffee-950">Rekap Reservasi &amp; Pesanan</h2>
+            <p class="text-xs sm:text-sm text-coffee-600">Klik <strong>Edit</strong> pada pemesan untuk mengubah jumlah orang (Pax), jadwal, status, atau rincian menu.</p>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2">
+            <button type="button" onclick="window.openCloudSettingsModal()" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs sm:text-sm inline-flex items-center gap-1.5">
+              <i class="ph-bold ph-cloud-check"></i>
+              <span>Pengaturan Cloud</span>
+            </button>
+            <button type="button" onclick="window.exportReservationsCSV()" class="px-3.5 py-2 rounded-xl bg-cream-100 hover:bg-cream-200 border border-coffee-200 text-coffee-900 font-semibold text-xs sm:text-sm inline-flex items-center gap-1.5">
+              <i class="ph-bold ph-download-simple"></i>
+              <span>Export CSV</span>
+            </button>
+            <button type="button" onclick="window.lockAdminDashboard()" class="px-3.5 py-2 rounded-xl bg-red-50 hover:bg-red-100 border border-red-200 text-red-700 font-semibold text-xs sm:text-sm inline-flex items-center gap-1.5">
+              <i class="ph-bold ph-lock"></i>
+              <span>Kunci</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- KPI -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="bg-white rounded-2xl p-4 sm:p-5 border border-cream-200 shadow-sm">
+            <div class="text-xs font-semibold text-coffee-600">Total Reservasi</div>
+            <div id="kpiTotalReservations" class="font-display font-extrabold text-2xl text-coffee-950 mt-1">0</div>
+          </div>
+          <div class="bg-white rounded-2xl p-4 sm:p-5 border border-cream-200 shadow-sm">
+            <div class="text-xs font-semibold text-coffee-600">Total Orang (Pax)</div>
+            <div id="kpiTotalGuests" class="font-display font-extrabold text-2xl text-coffee-950 mt-1">0</div>
+          </div>
+          <div class="bg-white rounded-2xl p-4 sm:p-5 border border-cream-200 shadow-sm">
+            <div class="text-xs font-semibold text-coffee-600">Total Porsi Menu</div>
+            <div id="kpiTotalPortions" class="font-display font-extrabold text-2xl text-coffee-950 mt-1">0</div>
+          </div>
+          <div class="bg-white rounded-2xl p-4 sm:p-5 border border-cream-200 shadow-sm">
+            <div class="text-xs font-semibold text-coffee-600">Total Omzet</div>
+            <div id="kpiTotalRevenue" class="font-display font-extrabold text-xl sm:text-2xl text-emerald-700 mt-1">Rp 0</div>
+          </div>
+        </div>
+
+        <!-- Tabel Reservasi -->
+        <div class="bg-white rounded-3xl p-5 sm:p-6 border border-cream-200 shadow-sm space-y-4">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+            <h3 class="font-display font-bold text-lg text-coffee-950">Daftar Pemesan &amp; Rincian Menu</h3>
+            <div class="flex flex-col sm:flex-row gap-2">
+              <input type="text" id="adminSearchInput" oninput="window.renderAdminDashboard()" placeholder="Cari nama / kode / WA..." class="px-3.5 py-2 rounded-xl bg-cream-50 border border-coffee-200 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-gold-500" />
+              <select id="adminStatusFilter" onchange="window.renderAdminDashboard()" class="px-3.5 py-2 rounded-xl bg-cream-50 border border-coffee-200 text-xs sm:text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-gold-500">
+                <option value="ALL">Semua Status</option>
+                <option value="Menunggu DP">Menunggu DP</option>
+                <option value="DP Terbayar">DP Terbayar</option>
+                <option value="Terkonfirmasi">Terkonfirmasi</option>
+                <option value="Lunas">Lunas</option>
+                <option value="Lunas / Terkonfirmasi">Lunas / Terkonfirmasi</option>
+                <option value="Selesai">Selesai</option>
+                <option value="Cancel">Cancel</option>
+                <option value="Batal">Batal</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="overflow-x-auto custom-scrollbar">
+            <table class="w-full text-left border-collapse min-w-[800px]">
+              <thead>
+                <tr class="border-b border-cream-200 bg-cream-50 text-[11px] font-display font-bold uppercase tracking-wider text-coffee-700">
+                  <th class="py-3 px-4">Pemesan</th>
+                  <th class="py-3 px-4">Jadwal &amp; Pax</th>
+                  <th class="py-3 px-4">Rincian Menu</th>
+                  <th class="py-3 px-4">Total</th>
+                  <th class="py-3 px-4">Status</th>
+                  <th class="py-3 px-4 text-center">Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="reservationsTableBody" class="divide-y divide-cream-200 text-xs sm:text-sm"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Rekap Menu Dapur -->
+        <div class="bg-white rounded-3xl p-5 sm:p-6 border border-cream-200 shadow-sm space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="font-display font-bold text-lg text-coffee-950">Rekap Porsi Menu</h3>
+            <span id="recapSummaryBadge" class="text-xs font-bold px-3 py-1 rounded-full bg-cream-100 text-coffee-900">0 Porsi • Rp 0</span>
+          </div>
+          <div class="overflow-x-auto custom-scrollbar">
+            <table class="w-full text-left border-collapse min-w-[520px]">
+              <thead>
+                <tr class="border-b border-cream-200 bg-cream-50 text-[11px] font-display font-bold uppercase tracking-wider text-coffee-700">
+                  <th class="py-3 px-4">Kategori</th>
+                  <th class="py-3 px-4">Menu</th>
+                  <th class="py-3 px-4 text-right">Harga</th>
+                  <th class="py-3 px-4 text-center">Porsi</th>
+                  <th class="py-3 px-4 text-right">Subtotal</th>
+                </tr>
+              </thead>
+              <tbody id="menuRecapTableBody" class="divide-y divide-cream-200 text-xs sm:text-sm"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-coffee-950 text-cream-200/80 py-5 px-4 text-center text-xs border-t border-gold-500/20">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+      <span>&copy; <span id="footerYear">2026</span> <strong>PREMIUM COFFEEBLENDED</strong></span>
+      <span>WA Admin: <strong>0851-9190-4930</strong></span>
+    </div>
+  </footer>
+
+  <!-- Modal Bukti Booking & Tombol Bayar DP QRIS -->
+  <div id="bookingReceiptModal" class="fixed inset-0 z-[60] hidden items-center justify-center bg-coffee-950/75 backdrop-blur-sm p-4 overflow-y-auto">
+    <div class="bg-cream-50 rounded-3xl max-w-lg w-full overflow-hidden shadow-2xl border border-gold-500/50 my-auto">
+      <div class="ramadan-pattern px-6 py-4 text-white flex items-center justify-between">
+        <div>
+          <h3 class="font-display font-bold text-base">Bukti Reservasi</h3>
+          <p class="text-[11px] text-gold-300" id="receiptBookingCode">Kode Booking: -</p>
+        </div>
+        <button type="button" onclick="window.closeBookingReceiptModal()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white">
+          <i class="ph-bold ph-x"></i>
+        </button>
+      </div>
+
+      <div id="receiptContentBody" class="p-6 space-y-4 text-xs sm:text-sm max-h-[75vh] overflow-y-auto custom-scrollbar"></div>
+
+      <div class="px-6 py-4 bg-cream-100 border-t border-cream-200 space-y-2.5">
+        <div class="flex flex-col sm:flex-row gap-2">
+          <a id="receiptWaAdminLink" href="#" target="_blank" rel="noopener" class="flex-1 py-2.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-display font-bold text-xs sm:text-sm flex items-center justify-center gap-2">
+            <i class="ph-fill ph-whatsapp-logo text-lg"></i>
+            <span>Kirim ke WA Admin</span>
+          </a>
+          <button type="button" onclick="window.closeBookingReceiptModal()" class="py-2.5 px-4 rounded-xl bg-white hover:bg-cream-200 border border-coffee-200 text-coffee-900 font-semibold text-xs sm:text-sm">
+            Tutup
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Edit Reservasi, Pax & Rincian Menu -->
+  <div id="editReservationModal" class="fixed inset-0 z-[70] hidden items-center justify-center bg-coffee-950/75 backdrop-blur-sm p-4 overflow-y-auto">
+    <div class="bg-cream-50 rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl border border-gold-500/60 my-auto">
+      <div class="bg-coffee-900 px-6 py-4 text-white flex items-center justify-between">
+        <div>
+          <h3 class="font-display font-bold text-base">Edit Reservasi &amp; Rincian Menu</h3>
+          <p class="text-[11px] text-gold-300" id="editModalSubtitle">Kode Booking: -</p>
+        </div>
+        <button type="button" onclick="window.closeEditReservationModal()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white">
+          <i class="ph-bold ph-x"></i>
+        </button>
+      </div>
+
+      <form id="editReservationForm" onsubmit="window.saveEditedReservation(event)" class="p-5 sm:p-6 space-y-4 max-h-[82vh] overflow-y-auto custom-scrollbar">
+        <input type="hidden" id="editResId" />
+
+        <div class="bg-white rounded-2xl p-4 border border-cream-200 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+          <div>
+            <label for="editCustName" class="block font-semibold text-coffee-900 mb-1">Nama Pemesan</label>
+            <input type="text" id="editCustName" required class="w-full px-3.5 py-2 rounded-xl bg-cream-50 border border-coffee-200 text-sm focus:outline-none focus:ring-2 focus:ring-gold-500" />
+          </div>
+          <div>
+            <label for="editCustPhone" class="block font-semibold text-coffee-900 mb-1">Nomor WhatsApp</label>
+            <input type="tel" id="editCustPhone" required class="w-full px-3.5 py-2 rounded-xl bg-cream-50 border border-coffee-200 text-sm focus:outline-none focus:ring-2 focus:ring-gold-500" />
+          </div>
+          <div>
+            <label for="editResDate" class="block font-semibold text-coffee-900 mb-1">Tanggal</label>
+            <input type="date" id="editResDate" required class="w-full px-3.5 py-2 rounded-xl bg-cream-50 border border-coffee-200 text-sm focus:outline-none focus:ring-2 focus:ring-gold-500" />
+          </div>
+          <div>
+            <label for="editArrivalTime" class="block font-semibold text-coffee-900 mb-1">Jam Kedatangan</label>
+            <select id="editArrivalTime" required class="w-full px-3.5 py-2 rounded-xl bg-cream-50 border border-coffee-200 text-sm focus:outline-none focus:ring-2 focus:ring-gold-500">
+              <option value="17:00">17:00 WIB</option>
+              <option value="17:30">17:30 WIB</option>
+              <option value="18:00">18:00 WIB</option>
+              <option value="18:30">18:30 WIB</option>
+              <option value="19:00">19:00 WIB</option>
+              <option value="20:00">20:00 WIB</option>
+            </select>
+          </div>
+          <div>
+            <label for="editGuestCount" class="block font-semibold text-coffee-900 mb-1">Jumlah Orang (Pax)</label>
+            <input type="number" id="editGuestCount" min="1" max="100" required class="w-full px-3.5 py-2 rounded-xl bg-cream-50 border border-coffee-200 text-sm font-bold focus:outline-none focus:ring-2 focus:ring-gold-500" />
+          </div>
+          <div>
+            <label for="editStatus" class="block font-semibold text-coffee-900 mb-1">Status</label>
+            <select id="editStatus" class="w-full px-3.5 py-2 rounded-xl bg-cream-50 border border-coffee-200 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-gold-500">
+              <option value="Menunggu DP">Menunggu DP</option>
+              <option value="DP Terbayar">DP Terbayar</option>
+              <option value="Terkonfirmasi">Terkonfirmasi</option>
+              <option value="Lunas">Lunas</option>
+              <option value="Lunas / Terkonfirmasi">Lunas / Terkonfirmasi</option>
+              <option value="Selesai">Selesai</option>
+              <option value="Cancel">Cancel</option>
+              <option value="Batal">Batal</option>
+            </select>
+          </div>
+          <div class="sm:col-span-2">
+            <label for="editNotes" class="block font-semibold text-coffee-900 mb-1">Catatan</label>
+            <input type="text" id="editNotes" class="w-full px-3.5 py-2 rounded-xl bg-cream-50 border border-coffee-200 text-sm focus:outline-none focus:ring-2 focus:ring-gold-500" />
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-4 border border-cream-200 space-y-3">
+          <h4 class="font-display font-bold text-xs uppercase tracking-wider text-coffee-700">Tambah Menu</h4>
+          <div class="flex flex-col sm:flex-row gap-2">
+            <select id="editAddMenuSelect" class="flex-grow px-3.5 py-2 rounded-xl bg-cream-50 border border-coffee-200 text-xs sm:text-sm font-medium focus:outline-none focus:ring-2 focus:ring-gold-500"></select>
+            <input type="number" id="editAddMenuQty" min="1" max="100" value="1" class="w-full sm:w-20 px-3 py-2 rounded-xl bg-cream-50 border border-coffee-200 text-sm font-bold text-center focus:outline-none focus:ring-2 focus:ring-gold-500" />
+            <button type="button" onclick="window.addMenuToEditDraft()" class="px-4 py-2 rounded-xl bg-coffee-900 hover:bg-coffee-950 text-gold-300 font-semibold text-xs sm:text-sm inline-flex items-center justify-center gap-1">
+              <i class="ph-bold ph-plus"></i>
+              <span>Tambah</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-4 border border-cream-200 space-y-3">
+          <div class="flex items-center justify-between">
+            <h4 class="font-display font-bold text-xs uppercase tracking-wider text-coffee-700">Rincian Menu</h4>
+            <span id="editDraftTotalPortions" class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-cream-100 text-coffee-900">0 Porsi</span>
+          </div>
+          <div id="editMenuItemsList" class="space-y-2 max-h-48 overflow-y-auto custom-scrollbar pr-1"></div>
+          <div class="pt-3 border-t border-dashed border-coffee-200 flex items-center justify-between">
+            <span class="font-display font-bold text-sm text-coffee-950">Total Baru</span>
+            <span id="editDraftTotalPrice" class="font-display font-extrabold text-lg text-coffee-950">Rp 0</span>
+          </div>
+        </div>
+
+        <div class="flex flex-col-reverse sm:flex-row justify-end gap-2">
+          <button type="button" onclick="window.closeEditReservationModal()" class="px-4 py-2.5 rounded-xl bg-cream-200 hover:bg-cream-300 text-coffee-900 text-sm font-semibold">Batal</button>
+          <button type="submit" id="saveEditedReservationBtn" class="px-5 py-2.5 rounded-xl bg-gold-500 hover:bg-gold-600 text-coffee-950 font-display font-bold text-sm shadow inline-flex items-center justify-center gap-1.5">
+            <i class="ph-bold ph-check-circle text-lg"></i>
+            <span>Simpan Perubahan</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Pengaturan Cloud -->
+  <div id="cloudSettingsModal" class="fixed inset-0 z-[75] hidden items-center justify-center bg-coffee-950/75 backdrop-blur-sm p-4 overflow-y-auto">
+    <div class="bg-white rounded-3xl max-w-lg w-full overflow-hidden shadow-2xl border border-cream-200 my-auto">
+      <div class="bg-coffee-900 px-6 py-4 text-white flex items-center justify-between">
+        <h3 class="font-display font-bold text-base">Pengaturan Cloud Database</h3>
+        <button type="button" onclick="window.closeCloudSettingsModal()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white">
+          <i class="ph-bold ph-x"></i>
+        </button>
+      </div>
+      <form onsubmit="window.saveCustomCloudConfig(event)" class="p-6 space-y-4 text-xs sm:text-sm">
+        <p class="text-coffee-600">Tempel konfigurasi Firebase (JSON) untuk menyimpan data reservasi secara bersama di cloud.</p>
+        <textarea id="customFirebaseConfigInput" rows="5" placeholder='{"apiKey":"...","authDomain":"...","projectId":"...","appId":"..."}' class="w-full p-3.5 rounded-xl bg-cream-50 border border-coffee-200 font-mono text-xs focus:outline-none focus:ring-2 focus:ring-gold-500"></textarea>
+        <div class="flex justify-between gap-2">
+          <button type="button" onclick="window.resetCustomCloudConfig()" class="px-3.5 py-2 rounded-xl bg-red-50 hover:bg-red-100 text-red-700 font-semibold text-xs">Reset</button>
+          <div class="flex gap-2">
+            <button type="button" onclick="window.closeCloudSettingsModal()" class="px-4 py-2 rounded-xl bg-cream-100 text-coffee-900 font-semibold text-xs">Batal</button>
+            <button type="submit" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-display font-bold text-xs">Simpan</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Konfirmasi -->
+  <div id="confirmModal" class="fixed inset-0 z-[80] hidden items-center justify-center bg-coffee-950/70 backdrop-blur-sm p-4">
+    <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl border border-cream-200 space-y-4 text-center">
+      <h3 id="confirmTitle" class="font-display font-bold text-base text-coffee-950">Konfirmasi</h3>
+      <p id="confirmMessage" class="text-xs text-coffee-600">Yakin ingin menghapus data ini?</p>
+      <div class="flex gap-2">
+        <button type="button" id="confirmCancelBtn" class="flex-1 py-2.5 px-4 rounded-xl bg-cream-100 text-coffee-900 font-semibold text-xs sm:text-sm">Batal</button>
+        <button type="button" id="confirmProceedBtn" class="flex-1 py-2.5 px-4 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-xs sm:text-sm">Hapus</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    import { getFirestore, collection, doc, addDoc, updateDoc, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+    const ADMIN_WA_NUMBER = '6285191904930';
+    // PIN awal admin yang disimpan dalam bentuk hash SHA-256 & FNV-1a tanpa menulis angka PIN secara langsung
+    const ADMIN_PIN_HASH = '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4';
+    const ADMIN_PIN_FNV_HASH = 'fnv1a_367b56e6';
+    const FALLBACK_STORAGE_KEY = 'premium_coffeeblended_reservations_v1';
+    const CUSTOM_CLOUD_KEY = 'premium_coffeeblended_custom_firebase_v1';
+    const EMBEDDED_CLOUD_CONFIG = null;
+
+    const MENU_CATALOG = [
+      { id: 'min-iced-tea', category: 'MINUMAN', name: 'ICED TEA', price: 10000, desc: 'Teh dingin segar pilihan.' },
+      { id: 'min-sanger', category: 'MINUMAN', name: 'Sanger', price: 17000, desc: 'Kopi susu khas dengan racikan pas.' },
+      { id: 'min-butterscotch', category: 'MINUMAN', name: 'Butterscotch', price: 25000, desc: 'Minuman creamy manis gurih butterscotch.' },
+      { id: 'min-salted-caramel', category: 'MINUMAN', name: 'Salted Caramel', price: 25000, desc: 'Perpaduan karamel manis dan gurih.' },
+      { id: 'mak-pecak', category: 'MAKANAN', name: 'NASI AYAM PECAK', price: 25000, desc: 'Nasi hangat dengan ayam pecak dan sambal khas.' },
+      { id: 'mak-geprek', category: 'MAKANAN', name: 'NASI AYAM GEPREK', price: 25000, desc: 'Ayam crispy digeprek sambal pedas dengan nasi.' },
+      { id: 'mak-nasgor-ayam', category: 'MAKANAN', name: 'NASI GORENG AYAM', price: 25000, desc: 'Nasi goreng gurih dengan suwiran ayam.' },
+      { id: 'mak-nasgor-telur', category: 'MAKANAN', name: 'NASI GORENG TELUR', price: 20000, desc: 'Nasi goreng klasik dengan telur orak-arik.' }
+    ];
+
+    let app = null;
+    let auth = null;
+    let db = null;
+    let appId = typeof __app_id !== 'undefined' ? __app_id : 'premium-coffeeblended';
+    let isCloudConnected = false;
+    let isAdminUnlocked = false;
+    let activeMenuCategory = 'Semua';
+    let cart = {};
+    let reservations = [];
+    let editDraftItems = [];
+    let lastSubmittedReceipt = null;
+    window.lastSubmittedReceiptData = null;
+
+    function formatRupiah(amount) {
+      return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(Number(amount) || 0);
+    }
+
+    function escapeHtml(text) {
+      return String(text ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function calculateDpAmount(totalAmount) {
+      const total = Number(totalAmount) || 0;
+      if (total <= 0) return 0;
+      return Math.min(total, Math.max(50000, Math.round(total * 0.3)));
+    }
+
+    function normalizeWaPhone(phone) {
+      const digits = String(phone || '').replace(/\D/g, '');
+      if (!digits) return '';
+      if (digits.startsWith('0')) return '62' + digits.slice(1);
+      if (digits.startsWith('8')) return '62' + digits;
+      return digits;
+    }
+
+    function getStatusBadgeClass(status) {
+      switch (status) {
+        case 'Lunas':
+        case 'Lunas / Terkonfirmasi':
+          return 'bg-emerald-100 text-emerald-800 border border-emerald-200';
+        case 'DP Terbayar':
+          return 'bg-sky-100 text-sky-800 border border-sky-200';
+        case 'Terkonfirmasi':
+          return 'bg-amber-100 text-amber-900 border border-amber-200';
+        case 'Selesai':
+          return 'bg-coffee-200 text-coffee-950 border border-coffee-300';
+        case 'Cancel':
+        case 'Batal':
+          return 'bg-red-100 text-red-800 border border-red-200';
+        case 'Menunggu DP':
+        default:
+          return 'bg-cream-200 text-coffee-900 border border-cream-300';
+      }
+    }
+
+    function getStatusSelectClass(status) {
+      switch (status) {
+        case 'Lunas':
+        case 'Lunas / Terkonfirmasi':
+          return 'bg-emerald-100 text-emerald-900 border-emerald-300';
+        case 'DP Terbayar':
+          return 'bg-sky-100 text-sky-900 border-sky-300';
+        case 'Terkonfirmasi':
+          return 'bg-amber-100 text-amber-950 border-amber-300';
+        case 'Selesai':
+          return 'bg-coffee-200 text-coffee-950 border-coffee-300';
+        case 'Cancel':
+        case 'Batal':
+          return 'bg-red-100 text-red-900 border-red-300';
+        case 'Menunggu DP':
+        default:
+          return 'bg-cream-100 text-coffee-900 border-coffee-200';
+      }
+    }
+
+    const STATUS_OPTIONS = [
+      'Menunggu DP',
+      'DP Terbayar',
+      'Terkonfirmasi',
+      'Lunas',
+      'Lunas / Terkonfirmasi',
+      'Selesai',
+      'Cancel',
+      'Batal'
+    ];
+
+    window.updateReservationStatusInline = async function(resId, newStatus) {
+      if (!resId || !newStatus) return;
+      try {
+        if (isCloudConnected && db) {
+          await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'reservations', resId), { status: newStatus });
+        } else {
+          reservations = reservations.map((r) => (r.id === resId ? { ...r, status: newStatus } : r));
+          saveFallback();
+          window.renderAdminDashboard();
+        }
+        showToast(`Status diubah menjadi "${newStatus}".`, 'success');
+      } catch (err) {
+        console.error(err);
+        showToast('Gagal memperbarui status.', 'error');
+      }
+    };
+
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toastContainer');
+      if (!container) return;
+      const styles = {
+        success: 'bg-emerald-900 text-emerald-50 border-emerald-500/40',
+        error: 'bg-red-900 text-red-50 border-red-500/40',
+        info: 'bg-coffee-900 text-cream-50 border-gold-500/40'
+      };
+      const el = document.createElement('div');
+      el.className = `pointer-events-auto px-4 py-3 rounded-2xl border shadow-xl text-xs sm:text-sm font-semibold ${styles[type] || styles.info}`;
+      el.textContent = message;
+      container.appendChild(el);
+      setTimeout(() => el.remove(), 3000);
+    }
+
+    function updateCloudBadge(connected, text) {
+      const html = connected
+        ? `<span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span><span>${escapeHtml(text || 'Cloud Real-Time')}</span>`
+        : `<span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span><span>${escapeHtml(text || 'Penyimpanan Lokal')}</span>`;
+      const d = document.getElementById('cloudStatusBadgeDesktop');
+      const m = document.getElementById('cloudStatusBadgeMobile');
+      if (d) d.innerHTML = html;
+      if (m) m.innerHTML = html;
+    }
+
+    function loadFallback() {
+      try {
+        const raw = localStorage.getItem(FALLBACK_STORAGE_KEY);
+        const parsed = raw ? JSON.parse(raw) : [];
+        reservations = Array.isArray(parsed) ? parsed : [];
+      } catch (e) {
+        reservations = [];
+      }
+    }
+
+    function saveFallback() {
+      try {
+        localStorage.setItem(FALLBACK_STORAGE_KEY, JSON.stringify(reservations));
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    function resolveFirebaseConfig() {
+      if (typeof __firebase_config !== 'undefined' && __firebase_config) {
+        try {
+          return typeof __firebase_config === 'string' ? JSON.parse(__firebase_config) : __firebase_config;
+        } catch (e) {
+          console.warn(e);
+        }
+      }
+      if (EMBEDDED_CLOUD_CONFIG && EMBEDDED_CLOUD_CONFIG.apiKey) return EMBEDDED_CLOUD_CONFIG;
+      try {
+        const saved = localStorage.getItem(CUSTOM_CLOUD_KEY);
+        if (saved) return JSON.parse(saved);
+      } catch (e) {
+        console.warn(e);
+      }
+      return null;
+    }
+
+    async function initCloudStorage() {
+      loadFallback();
+      const config = resolveFirebaseConfig();
+      if (!config || !config.apiKey || !config.projectId) {
+        isCloudConnected = false;
+        updateCloudBadge(false, 'Penyimpanan Lokal');
+        return;
+      }
+      try {
+        app = initializeApp(config);
+        auth = getAuth(app);
+        db = getFirestore(app);
+        if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+          await signInWithCustomToken(auth, __initial_auth_token);
+        } else {
+          await signInAnonymously(auth);
+        }
+        isCloudConnected = true;
+        updateCloudBadge(true, 'Cloud Real-Time');
+        const colRef = collection(db, 'artifacts', appId, 'public', 'data', 'reservations');
+        onSnapshot(colRef, (snap) => {
+          reservations = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+          reservations.sort((a, b) => String(b.createdAt || '').localeCompare(String(a.createdAt || '')));
+          saveFallback();
+          if (isAdminUnlocked) window.renderAdminDashboard();
+        }, (err) => {
+          console.error(err);
+          isCloudConnected = false;
+          updateCloudBadge(false, 'Penyimpanan Lokal');
+        });
+      } catch (err) {
+        console.error(err);
+        isCloudConnected = false;
+        updateCloudBadge(false, 'Penyimpanan Lokal');
+      }
+    }
+
+    window.switchMainTab = function(tab) {
+      const resSec = document.getElementById('reservationSection');
+      const admSec = document.getElementById('adminSection');
+      const tabRes = document.getElementById('tabReservationBtn');
+      const tabAdm = document.getElementById('tabAdminBtn');
+      if (tab === 'admin') {
+        resSec.classList.add('hidden');
+        admSec.classList.remove('hidden');
+        tabAdm.className = 'flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-display font-bold bg-gold-500 text-coffee-950 shadow';
+        tabRes.className = 'flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-display font-bold text-cream-200 hover:text-white';
+        if (isAdminUnlocked) window.renderAdminDashboard();
+      } else {
+        admSec.classList.add('hidden');
+        resSec.classList.remove('hidden');
+        tabRes.className = 'flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-display font-bold bg-gold-500 text-coffee-950 shadow';
+        tabAdm.className = 'flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-display font-bold text-cream-200 hover:text-white';
+      }
+    };
+
+    window.stepGuestCount = function(delta) {
+      const el = document.getElementById('guestCount');
+      el.value = Math.min(100, Math.max(1, (parseInt(el.value, 10) || 1) + delta));
+      window.updateOrderSummary();
+    };
+
+    window.setMenuCategory = function(cat) {
+      activeMenuCategory = cat;
+      document.querySelectorAll('.menu-filter-btn').forEach((btn) => {
+        btn.className = btn.dataset.cat === cat
+          ? 'menu-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-coffee-900 text-white'
+          : 'menu-filter-btn px-3 py-1.5 rounded-lg text-xs font-bold text-coffee-700 hover:text-coffee-950';
+      });
+      renderMenuCatalog();
+    };
+
+    function renderMenuCatalog() {
+      const grid = document.getElementById('menuCatalogGrid');
+      const items = activeMenuCategory === 'Semua' ? MENU_CATALOG : MENU_CATALOG.filter((m) => m.category === activeMenuCategory);
+      grid.innerHTML = items.map((item) => {
+        const qty = cart[item.id] || 0;
+        return `
+          <div class="p-4 rounded-2xl bg-cream-50 border ${qty > 0 ? 'border-gold-500' : 'border-cream-200'} flex flex-col justify-between gap-3">
+            <div>
+              <div class="flex items-center justify-between gap-2">
+                <span class="text-[10px] font-display font-extrabold uppercase px-2 py-0.5 rounded-full bg-cream-200 text-coffee-900">${escapeHtml(item.category)}</span>
+                <span class="font-display font-extrabold text-sm text-coffee-950">${formatRupiah(item.price)}</span>
+              </div>
+              <h4 class="font-display font-bold text-sm sm:text-base text-coffee-950 mt-1.5">${escapeHtml(item.name)}</h4>
+              <p class="text-xs text-coffee-600 mt-0.5">${escapeHtml(item.desc)}</p>
+            </div>
+            <div class="flex items-center justify-end pt-2 border-t border-cream-200">
+              ${qty === 0 ? `
+                <button type="button" onclick="window.updateCartQty('${item.id}', 1)" class="px-3.5 py-1.5 rounded-xl bg-coffee-900 hover:bg-coffee-950 text-gold-300 font-display font-bold text-xs inline-flex items-center gap-1">
+                  <i class="ph-bold ph-plus"></i><span>Tambah</span>
+                </button>
+              ` : `
+                <div class="inline-flex items-center gap-2">
+                  <button type="button" onclick="window.updateCartQty('${item.id}', -1)" class="w-7 h-7 rounded-lg bg-white border border-coffee-200 font-bold flex items-center justify-center"><i class="ph-bold ph-minus text-xs"></i></button>
+                  <span class="min-w-[20px] text-center font-display font-extrabold text-sm">${qty}</span>
+                  <button type="button" onclick="window.updateCartQty('${item.id}', 1)" class="w-7 h-7 rounded-lg bg-coffee-900 text-gold-300 font-bold flex items-center justify-center"><i class="ph-bold ph-plus text-xs"></i></button>
+                </div>
+              `}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    window.updateCartQty = function(id, delta) {
+      const next = (cart[id] || 0) + delta;
+      if (next <= 0) delete cart[id];
+      else cart[id] = next;
+      renderMenuCatalog();
+      window.updateOrderSummary();
+    };
+
+    window.updateOrderSummary = function() {
+      const pax = Math.max(1, parseInt(document.getElementById('guestCount')?.value, 10) || 1);
+      document.getElementById('summaryPaxBadge').textContent = `${pax} Orang`;
+
+      const selected = Object.entries(cart)
+        .map(([id, qty]) => {
+          const item = MENU_CATALOG.find((m) => m.id === id);
+          if (!item || qty <= 0) return null;
+          return { ...item, qty, subtotal: item.price * qty };
+        })
+        .filter(Boolean);
+
+      const listEl = document.getElementById('summaryItemsList');
+      if (selected.length === 0) {
+        listEl.innerHTML = `<div class="text-center py-6 px-3 rounded-2xl bg-cream-50 border border-dashed border-coffee-200 text-xs text-coffee-500">Belum ada menu dipilih.</div>`;
+        document.getElementById('summaryTotalQty').textContent = '0 Porsi';
+        document.getElementById('summaryDpAmount').textContent = 'Rp 0';
+        document.getElementById('summaryTotalPrice').textContent = 'Rp 0';
+        return;
+      }
+
+      listEl.innerHTML = selected.map((i) => `
+        <div class="flex items-center justify-between gap-2 p-2.5 rounded-xl bg-cream-50 border border-cream-200 text-xs">
+          <div>
+            <div class="font-display font-bold text-coffee-950">${escapeHtml(i.name)}</div>
+            <div class="text-coffee-600">${i.qty} x ${formatRupiah(i.price)}</div>
+          </div>
+          <div class="font-display font-extrabold text-coffee-950">${formatRupiah(i.subtotal)}</div>
+        </div>
+      `).join('');
+
+      const totalQty = selected.reduce((s, i) => s + i.qty, 0);
+      const totalPrice = selected.reduce((s, i) => s + i.subtotal, 0);
+      document.getElementById('summaryTotalQty').textContent = `${totalQty} Porsi`;
+      document.getElementById('summaryDpAmount').textContent = formatRupiah(calculateDpAmount(totalPrice));
+      document.getElementById('summaryTotalPrice').textContent = formatRupiah(totalPrice);
+    };
+
+    function buildWaText(data) {
+      const menuLines = (data.items || []).map((i) => `- ${i.name} (${i.qty}x) = ${formatRupiah(i.subtotal)}`).join('\n');
+      const dp = calculateDpAmount(data.totalAmount);
+      return [
+        'Halo Admin *PREMIUM COFFEEBLENDED*, konfirmasi reservasi:',
+        `Kode Booking: *${data.bookingCode}*`,
+        `Nama: *${data.custName}*`,
+        `No. WA: ${data.custPhone}`,
+        `Jadwal: ${data.resDate} • ${data.arrivalTime} WIB`,
+        `Jumlah Orang: *${data.guestCount} Orang*`,
+        menuLines ? `\n*Rincian Menu:*\n${menuLines}` : '',
+        `\nTotal: *${formatRupiah(data.totalAmount)}*`,
+        `DP: *${formatRupiah(dp)}*`,
+        data.notes ? `Catatan: ${data.notes}` : ''
+      ].filter(Boolean).join('\n');
+    }
+
+    window.handleReservationSubmit = async function(e) {
+      e.preventDefault();
+      const custName = document.getElementById('custName').value.trim();
+      const custPhone = document.getElementById('custPhone').value.trim();
+      const resDate = document.getElementById('resDate').value;
+      const arrivalTime = document.getElementById('arrivalTime').value;
+      const guestCount = Math.max(1, parseInt(document.getElementById('guestCount').value, 10) || 1);
+      const notes = document.getElementById('notes').value.trim();
+
+      const items = Object.entries(cart)
+        .map(([id, qty]) => {
+          const item = MENU_CATALOG.find((m) => m.id === id);
+          if (!item || qty <= 0) return null;
+          return { id: item.id, name: item.name, category: item.category, price: item.price, qty, subtotal: item.price * qty };
+        })
+        .filter(Boolean);
+
+      const totalAmount = items.reduce((s, i) => s + i.subtotal, 0);
+      const bookingCode = `PCB-${Math.floor(100000 + Math.random() * 900000)}`;
+      const record = {
+        bookingCode,
+        custName,
+        custPhone,
+        resDate,
+        arrivalTime,
+        guestCount,
+        notes,
+        items,
+        totalAmount,
+        status: 'Menunggu DP',
+        createdAt: new Date().toISOString()
+      };
+
+      const btn = document.getElementById('submitReservationBtn');
+      const orig = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = `<i class="ph-bold ph-spinner animate-spin text-lg"></i><span>Menyimpan...</span>`;
+
+      try {
+        let savedId = `local_${Date.now()}`;
+        if (isCloudConnected && db) {
+          const ref = await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'reservations'), record);
+          savedId = ref.id;
+        } else {
+          reservations.unshift({ id: savedId, ...record });
+          saveFallback();
+          if (isAdminUnlocked) window.renderAdminDashboard();
+        }
+
+        const fullData = { id: savedId, ...record };
+        lastSubmittedReceipt = fullData;
+        window.lastSubmittedReceiptData = fullData;
+        openReceiptModal(fullData);
+
+        cart = {};
+        renderMenuCatalog();
+        window.updateOrderSummary();
+        document.getElementById('notes').value = '';
+        showToast('Reservasi tersimpan!', 'success');
+      } catch (err) {
+        console.error(err);
+        showToast('Gagal menyimpan reservasi.', 'error');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = orig;
+      }
+    };
+
+    function openReceiptModal(data) {
+      document.getElementById('receiptBookingCode').textContent = `Kode Booking: ${data.bookingCode}`;
+      const dp = calculateDpAmount(data.totalAmount);
+      const itemsHtml = (data.items && data.items.length > 0)
+        ? data.items.map((i) => `<div class="flex justify-between text-xs py-1 border-b border-dashed border-cream-200 last:border-0"><span>${escapeHtml(i.name)} (${i.qty}x)</span><strong>${formatRupiah(i.subtotal)}</strong></div>`).join('')
+        : `<div class="text-xs text-coffee-500">Tanpa menu</div>`;
+
+      document.getElementById('receiptContentBody').innerHTML = `
+        <div class="bg-white rounded-2xl p-4 border border-cream-200 space-y-1.5">
+          <div class="flex justify-between"><span class="text-coffee-600">Nama</span><strong>${escapeHtml(data.custName)}</strong></div>
+          <div class="flex justify-between"><span class="text-coffee-600">No. WA</span><strong>${escapeHtml(data.custPhone)}</strong></div>
+          <div class="flex justify-between"><span class="text-coffee-600">Jadwal</span><strong>${escapeHtml(data.resDate)} • ${escapeHtml(data.arrivalTime)} WIB</strong></div>
+          <div class="flex justify-between"><span class="text-coffee-600">Jumlah Orang</span><strong>${escapeHtml(data.guestCount)} Orang</strong></div>
+          ${data.notes ? `<div class="flex justify-between gap-2"><span class="text-coffee-600">Catatan</span><strong class="text-right">${escapeHtml(data.notes)}</strong></div>` : ''}
+        </div>
+        <div class="bg-white rounded-2xl p-4 border border-cream-200 space-y-2">
+          <div class="font-display font-bold text-xs uppercase text-coffee-700">Rincian Menu</div>
+          <div>${itemsHtml}</div>
+          <div class="pt-2 border-t border-cream-200 flex justify-between font-display font-extrabold">
+            <span>Total</span><span>${formatRupiah(data.totalAmount)}</span>
+          </div>
+          <div class="flex justify-between text-xs bg-gold-100 px-3 py-2 rounded-xl font-bold text-coffee-950">
+            <span>Nominal DP</span><span>${formatRupiah(dp)}</span>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('receiptWaAdminLink').href = `https://wa.me/${ADMIN_WA_NUMBER}?text=${encodeURIComponent(buildWaText(data, false))}`;
+      const modal = document.getElementById('bookingReceiptModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    window.closeBookingReceiptModal = function() {
+      const modal = document.getElementById('bookingReceiptModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    };
+
+    window.openQrisModalFromReceipt = function() {
+      const data = window.lastSubmittedReceiptData || lastSubmittedReceipt;
+      if (!data) return;
+      document.getElementById('qrisDpAmountText').textContent = formatRupiah(calculateDpAmount(data.totalAmount));
+      document.getElementById('qrisBookingMeta').textContent = `${data.bookingCode} • ${data.custName}`;
+      document.getElementById('receiptWaAdminLink').href = `https://wa.me/${ADMIN_WA_NUMBER}?text=${encodeURIComponent(buildWaText(data))}`;
+      const modal = document.getElementById('bookingReceiptModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    window.closeBookingReceiptModal = function() {
+      const modal = document.getElementById('bookingReceiptModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    };
+
+    async function hashPin(pinText) {
+      const cleanPin = String(pinText || '').trim();
+      if (window.crypto && window.crypto.subtle) {
+        const buf = await window.crypto.subtle.digest('SHA-256', new TextEncoder().encode(cleanPin));
+        return Array.from(new Uint8Array(buf)).map((b) => b.toString(16).padStart(2, '0')).join('');
+      }
+      // Fallback hash FNV-1a 32-bit bila browser memblokir crypto.subtle pada konteks non-HTTPS
+      let h = 2166136261;
+      for (let i = 0; i < cleanPin.length; i++) {
+        h ^= cleanPin.charCodeAt(i);
+        h = Math.imul(h, 16777619);
+      }
+      return 'fnv1a_' + (h >>> 0).toString(16);
+    }
+
+    window.handleAdminPinSubmit = async function(e) {
+      e.preventDefault();
+      const inp = document.getElementById('adminPinInput');
+      const enteredPin = String(inp?.value || '').trim();
+      if (!enteredPin) {
+        showToast('Silakan masukkan PIN admin terlebih dahulu.', 'error');
+        return;
+      }
+
+      const enteredHash = await hashPin(enteredPin);
+      const isValid = enteredHash === ADMIN_PIN_HASH || enteredHash === ADMIN_PIN_FNV_HASH;
+
+      if (isValid) {
+        isAdminUnlocked = true;
+        document.getElementById('adminPinGate').classList.add('hidden');
+        document.getElementById('adminDashboardContent').classList.remove('hidden');
+        window.renderAdminDashboard();
+        showToast('Berhasil masuk ke Dashboard Admin & Kasir.', 'success');
+      } else {
+        showToast('PIN akses admin tidak valid.', 'error');
+      }
+    };
+
+    window.lockAdminDashboard = function() {
+      isAdminUnlocked = false;
+      document.getElementById('adminDashboardContent').classList.add('hidden');
+      document.getElementById('adminPinGate').classList.remove('hidden');
+    };
+
+    window.renderAdminDashboard = function() {
+      if (!isAdminUnlocked) return;
+      const q = (document.getElementById('adminSearchInput')?.value || '').trim().toLowerCase();
+      const st = document.getElementById('adminStatusFilter')?.value || 'ALL';
+
+      const list = reservations.filter((r) => {
+        const okSt = st === 'ALL' || (r.status || 'Menunggu DP') === st;
+        if (!okSt) return false;
+        if (!q) return true;
+        return `${r.bookingCode || ''} ${r.custName || ''} ${r.custPhone || ''}`.toLowerCase().includes(q);
+      });
+
+      document.getElementById('kpiTotalReservations').textContent = String(list.length);
+      document.getElementById('kpiTotalGuests').textContent = String(list.reduce((s, r) => s + (Number(r.guestCount) || 0), 0));
+      document.getElementById('kpiTotalPortions').textContent = String(list.reduce((s, r) => s + (Array.isArray(r.items) ? r.items.reduce((a, b) => a + (Number(b.qty) || 0), 0) : 0), 0));
+      document.getElementById('kpiTotalRevenue').textContent = formatRupiah(list.reduce((s, r) => s + (Number(r.totalAmount) || 0), 0));
+
+      const tbody = document.getElementById('reservationsTableBody');
+      if (list.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" class="py-8 px-4 text-center text-coffee-500">Belum ada data reservasi.</td></tr>`;
+      } else {
+        tbody.innerHTML = list.map((r) => {
+          const itemsHtml = Array.isArray(r.items) && r.items.length > 0
+            ? r.items.map((i) => `<div class="text-xs">• <strong>${escapeHtml(i.name)}</strong> (${Number(i.qty) || 0}x)</div>`).join('')
+            : `<span class="text-xs text-coffee-400">Tanpa menu</span>`;
+          const wa = normalizeWaPhone(r.custPhone);
+          const currentStatus = r.status || 'Menunggu DP';
+          return `
+            <tr class="hover:bg-cream-50/70 align-top">
+              <td class="py-3.5 px-4">
+                <div class="font-display font-bold text-coffee-950">${escapeHtml(r.custName)}</div>
+                <div class="text-[11px] font-semibold text-gold-700">${escapeHtml(r.bookingCode || '-')}</div>
+                <div class="text-[11px] text-coffee-600">${escapeHtml(r.custPhone || '-')}</div>
+                ${r.notes ? `<div class="text-[11px] italic text-coffee-500">${escapeHtml(r.notes)}</div>` : ''}
+              </td>
+              <td class="py-3.5 px-4 whitespace-nowrap">
+                <div class="font-semibold">${escapeHtml(r.resDate || '-')} • ${escapeHtml(r.arrivalTime || '-')} WIB</div>
+                <span class="inline-block mt-1 px-2 py-0.5 rounded-full bg-cream-200 text-coffee-950 font-bold text-[11px]">${Number(r.guestCount) || 1} Orang</span>
+              </td>
+              <td class="py-3.5 px-4 min-w-[180px]">${itemsHtml}</td>
+              <td class="py-3.5 px-4 whitespace-nowrap font-display font-extrabold">${formatRupiah(r.totalAmount)}</td>
+              <td class="py-3.5 px-4 whitespace-nowrap">
+                <select
+                  aria-label="Ubah Status Reservasi"
+                  onchange="window.updateReservationStatusInline('${r.id}', this.value)"
+                  class="px-2.5 py-1.5 rounded-xl text-xs font-bold border cursor-pointer focus:outline-none focus:ring-2 focus:ring-gold-500 ${getStatusSelectClass(currentStatus)}"
+                >
+                  ${STATUS_OPTIONS.map((opt) => `<option value="${escapeHtml(opt)}" ${opt === currentStatus ? 'selected' : ''}>${escapeHtml(opt)}</option>`).join('')}
+                </select>
+              </td>
+              <td class="py-3.5 px-4 text-center whitespace-nowrap">
+                <div class="inline-flex items-center gap-1.5">
+                  <button type="button" onclick="window.openEditReservationModal('${r.id}')" class="px-2.5 py-1.5 rounded-lg bg-amber-100 hover:bg-amber-200 text-amber-950 font-semibold text-xs inline-flex items-center gap-1">
+                    <i class="ph-bold ph-pencil-simple"></i><span>Edit</span>
+                  </button>
+                  ${wa ? `<a href="https://wa.me/${wa}" target="_blank" rel="noopener" class="p-2 rounded-lg bg-emerald-100 hover:bg-emerald-200 text-emerald-800"><i class="ph-fill ph-whatsapp-logo text-base"></i></a>` : ''}
+                  <button type="button" onclick="window.confirmDeleteReservation('${r.id}', '${escapeHtml(r.bookingCode || r.custName)}')" class="p-2 rounded-lg bg-red-100 hover:bg-red-200 text-red-700"><i class="ph-bold ph-trash text-base"></i></button>
+                </div>
+              </td>
+            </tr>
+          `;
+        }).join('');
+      }
+
+      renderRecapTable(list);
+    };
+
+    function renderRecapTable(list) {
+      const map = new Map();
+      list.forEach((r) => {
+        if (!Array.isArray(r.items)) return;
+        r.items.forEach((i) => {
+          const qty = Number(i.qty) || 0;
+          if (qty <= 0) return;
+          const cat = MENU_CATALOG.find((m) => m.id === i.id || m.name === i.name);
+          const price = Number(i.price) || (cat ? cat.price : 0);
+          const category = i.category || (cat ? cat.category : 'Menu');
+          const cur = map.get(i.name) || { name: i.name, category, price, qty: 0, subtotal: 0 };
+          cur.qty += qty;
+          cur.subtotal += price * qty;
+          map.set(i.name, cur);
+        });
+      });
+
+      const rows = Array.from(map.values());
+      const grandQty = rows.reduce((s, x) => s + x.qty, 0);
+      const grandTotal = rows.reduce((s, x) => s + x.subtotal, 0);
+      document.getElementById('recapSummaryBadge').textContent = `${grandQty} Porsi • ${formatRupiah(grandTotal)}`;
+
+      const body = document.getElementById('menuRecapTableBody');
+      if (rows.length === 0) {
+        body.innerHTML = `<tr><td colspan="5" class="py-6 px-4 text-center text-coffee-500">Belum ada porsi menu.</td></tr>`;
+        return;
+      }
+      body.innerHTML = rows.map((x) => `
+        <tr>
+          <td class="py-3 px-4 text-xs font-semibold text-coffee-700">${escapeHtml(x.category)}</td>
+          <td class="py-3 px-4 font-display font-bold">${escapeHtml(x.name)}</td>
+          <td class="py-3 px-4 text-right">${formatRupiah(x.price)}</td>
+          <td class="py-3 px-4 text-center font-display font-extrabold">${x.qty}</td>
+          <td class="py-3 px-4 text-right font-display font-extrabold">${formatRupiah(x.subtotal)}</td>
+        </tr>
+      `).join('');
+    }
+
+    window.openEditReservationModal = function(resId) {
+      const res = reservations.find((r) => r.id === resId);
+      if (!res) return;
+
+      document.getElementById('editResId').value = res.id;
+      document.getElementById('editModalSubtitle').textContent = `Kode Booking: ${res.bookingCode || '-'}`;
+      document.getElementById('editCustName').value = res.custName || '';
+      document.getElementById('editCustPhone').value = res.custPhone || '';
+      document.getElementById('editResDate').value = res.resDate || '';
+      document.getElementById('editArrivalTime').value = res.arrivalTime || '17:30';
+      document.getElementById('editGuestCount').value = Number(res.guestCount) || 1;
+      document.getElementById('editStatus').value = res.status || 'Menunggu DP';
+      document.getElementById('editNotes').value = res.notes || '';
+
+      document.getElementById('editAddMenuSelect').innerHTML = MENU_CATALOG.map((m) => (
+        `<option value="${m.id}">${escapeHtml(m.name)} (${escapeHtml(m.category)}) — ${formatRupiah(m.price)}</option>`
+      )).join('');
+      document.getElementById('editAddMenuQty').value = 1;
+
+      editDraftItems = Array.isArray(res.items)
+        ? res.items.map((i) => {
+            const cat = MENU_CATALOG.find((m) => m.id === i.id || m.name === i.name);
+            const price = Number(i.price) || (cat ? cat.price : 0);
+            const qty = Math.max(1, Number(i.qty) || 1);
+            return { id: i.id || (cat ? cat.id : i.name), name: i.name, category: i.category || (cat ? cat.category : 'Menu'), price, qty, subtotal: price * qty };
+          })
+        : [];
+
+      renderEditDraft();
+      const modal = document.getElementById('editReservationModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    };
+
+    window.closeEditReservationModal = function() {
+      const modal = document.getElementById('editReservationModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      editDraftItems = [];
+    };
+
+    window.addMenuToEditDraft = function() {
+      const id = document.getElementById('editAddMenuSelect').value;
+      const addQty = Math.max(1, parseInt(document.getElementById('editAddMenuQty').value, 10) || 1);
+      const cat = MENU_CATALOG.find((m) => m.id === id);
+      if (!cat) return;
+      const idx = editDraftItems.findIndex((i) => i.id === cat.id || i.name === cat.name);
+      if (idx >= 0) {
+        editDraftItems[idx].qty += addQty;
+        editDraftItems[idx].subtotal = editDraftItems[idx].price * editDraftItems[idx].qty;
+      } else {
+        editDraftItems.push({ id: cat.id, name: cat.name, category: cat.category, price: cat.price, qty: addQty, subtotal: cat.price * addQty });
+      }
+      document.getElementById('editAddMenuQty').value = 1;
+      renderEditDraft();
+    };
+
+    window.changeEditDraftQty = function(idx, delta) {
+      const item = editDraftItems[idx];
+      if (!item) return;
+      const next = item.qty + delta;
+      if (next <= 0) editDraftItems.splice(idx, 1);
+      else {
+        item.qty = next;
+        item.subtotal = item.price * next;
+      }
+      renderEditDraft();
+    };
+
+    window.removeEditDraftItem = function(idx) {
+      editDraftItems.splice(idx, 1);
+      renderEditDraft();
+    };
+
+    function renderEditDraft() {
+      const listEl = document.getElementById('editMenuItemsList');
+      const totalPortions = editDraftItems.reduce((s, i) => s + (Number(i.qty) || 0), 0);
+      const totalPrice = editDraftItems.reduce((s, i) => s + ((Number(i.price) || 0) * (Number(i.qty) || 0)), 0);
+      document.getElementById('editDraftTotalPortions').textContent = `${totalPortions} Porsi`;
+      document.getElementById('editDraftTotalPrice').textContent = formatRupiah(totalPrice);
+
+      if (editDraftItems.length === 0) {
+        listEl.innerHTML = `<div class="text-center py-4 text-xs text-coffee-500">Belum ada item menu.</div>`;
+        return;
+      }
+
+      listEl.innerHTML = editDraftItems.map((item, idx) => `
+        <div class="flex items-center justify-between gap-2 p-2.5 rounded-xl bg-cream-50 border border-cream-200 text-xs">
+          <div>
+            <div class="font-display font-bold text-coffee-950">${escapeHtml(item.name)}</div>
+            <div class="text-coffee-600">${formatRupiah(item.price)} x ${item.qty} = <strong>${formatRupiah(item.price * item.qty)}</strong></div>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <button type="button" onclick="window.changeEditDraftQty(${idx}, -1)" class="w-7 h-7 rounded-lg bg-white border border-coffee-200 font-bold flex items-center justify-center"><i class="ph-bold ph-minus text-xs"></i></button>
+            <span class="min-w-[20px] text-center font-display font-extrabold">${item.qty}</span>
+            <button type="button" onclick="window.changeEditDraftQty(${idx}, 1)" class="w-7 h-7 rounded-lg bg-coffee-900 text-gold-300 font-bold flex items-center justify-center"><i class="ph-bold ph-plus text-xs"></i></button>
+            <button type="button" onclick="window.removeEditDraftItem(${idx})" class="w-7 h-7 rounded-lg bg-red-100 text-red-700 flex items-center justify-center"><i class="ph-bold ph-trash text-xs"></i></button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    window.saveEditedReservation = async function(e) {
+      e.preventDefault();
+      const resId = document.getElementById('editResId').value;
+      const items = editDraftItems.filter((i) => (Number(i.qty) || 0) > 0).map((i) => ({
+        id: i.id,
+        name: i.name,
+        category: i.category,
+        price: Number(i.price) || 0,
+        qty: Number(i.qty) || 0,
+        subtotal: (Number(i.price) || 0) * (Number(i.qty) || 0)
+      }));
+      const totalAmount = items.reduce((s, i) => s + i.subtotal, 0);
+      const patch = {
+        custName: document.getElementById('editCustName').value.trim(),
+        custPhone: document.getElementById('editCustPhone').value.trim(),
+        resDate: document.getElementById('editResDate').value,
+        arrivalTime: document.getElementById('editArrivalTime').value,
+        guestCount: Math.max(1, parseInt(document.getElementById('editGuestCount').value, 10) || 1),
+        status: document.getElementById('editStatus').value,
+        notes: document.getElementById('editNotes').value.trim(),
+        items,
+        totalAmount
+      };
+
+      const btn = document.getElementById('saveEditedReservationBtn');
+      const orig = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = `<span>Menyimpan...</span>`;
+
+      try {
+        if (isCloudConnected && db) {
+          await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'reservations', resId), patch);
+        } else {
+          reservations = reservations.map((r) => (r.id === resId ? { ...r, ...patch } : r));
+          saveFallback();
+          window.renderAdminDashboard();
+        }
+        window.closeEditReservationModal();
+        showToast('Perubahan disimpan.', 'success');
+      } catch (err) {
+        console.error(err);
+        showToast('Gagal menyimpan perubahan.', 'error');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = orig;
+      }
+    };
+
+    window.confirmDeleteReservation = function(resId, label) {
+      const modal = document.getElementById('confirmModal');
+      document.getElementById('confirmMessage').textContent = `Hapus reservasi "${label}"?`;
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+
+      const cancelBtn = document.getElementById('confirmCancelBtn');
+      const proceedBtn = document.getElementById('confirmProceedBtn');
+      const close = () => {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      };
+
+      cancelBtn.onclick = close;
+      proceedBtn.onclick = async () => {
+        close();
+        try {
+          if (isCloudConnected && db) {
+            await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'reservations', resId));
+          } else {
+            reservations = reservations.filter((r) => r.id !== resId);
+            saveFallback();
+            window.renderAdminDashboard();
+          }
+          showToast('Data dihapus.', 'success');
+        } catch (err) {
+          console.error(err);
+          showToast('Gagal menghapus data.', 'error');
+        }
+      };
+    };
+
+    window.exportReservationsCSV = function() {
+      if (reservations.length === 0) {
+        showToast('Belum ada data untuk di-export.', 'info');
+        return;
+      }
+      const headers = ['Kode', 'Nama', 'WA', 'Tanggal', 'Jam', 'Jumlah Orang', 'Status', 'Total', 'Rincian Menu', 'Catatan'];
+      const lines = [headers.join(',')];
+      reservations.forEach((r) => {
+        const menuStr = Array.isArray(r.items) ? r.items.map((i) => `${i.name} (${i.qty}x)`).join(' | ') : '';
+        lines.push([
+          r.bookingCode || '', r.custName || '', r.custPhone || '', r.resDate || '', r.arrivalTime || '',
+          r.guestCount || 1, r.status || 'Menunggu DP', r.totalAmount || 0, menuStr, r.notes || ''
+        ].map((v) => `"${String(v ?? '').replace(/"/g, '""')}"`).join(','));
+      });
+      const blob = new Blob([lines.join('\n')], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `reservasi-coffeeblended-${new Date().toISOString().slice(0, 10)}.csv`;
+      a.click();
+      URL.revokeObjectURL(url);
+    };
+
+    window.openCloudSettingsModal = function() {
+      document.getElementById('customFirebaseConfigInput').value = localStorage.getItem(CUSTOM_CLOUD_KEY) || '';
+      const modal = document.getElementById('cloudSettingsModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    };
+
+    window.closeCloudSettingsModal = function() {
+      const modal = document.getElementById('cloudSettingsModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    };
+
+    window.saveCustomCloudConfig = function(e) {
+      e.preventDefault();
+      try {
+        const raw = document.getElementById('customFirebaseConfigInput').value.trim().replace(/([{,]\s*)([a-zA-Z0-9_]+)\s*:/g, '$1"$2":');
+        const parsed = JSON.parse(raw);
+        if (!parsed.apiKey || !parsed.projectId) {
+          showToast('Konfigurasi butuh apiKey dan projectId.', 'error');
+          return;
+        }
+        localStorage.setItem(CUSTOM_CLOUD_KEY, JSON.stringify(parsed));
+        window.closeCloudSettingsModal();
+        setTimeout(() => window.location.reload(), 400);
+      } catch (err) {
+        showToast('Format konfigurasi tidak valid.', 'error');
+      }
+    };
+
+    window.resetCustomCloudConfig = function() {
+      localStorage.removeItem(CUSTOM_CLOUD_KEY);
+      window.closeCloudSettingsModal();
+      setTimeout(() => window.location.reload(), 400);
+    };
+
+    window.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('footerYear').textContent = String(new Date().getFullYear());
+      const dateInp = document.getElementById('resDate');
+      if (dateInp && !dateInp.value) dateInp.value = new Date().toISOString().slice(0, 10);
+      renderMenuCatalog();
+      window.updateOrderSummary();
+      initCloudStorage();
+    });
+  </script>
+</body>
+</html>
